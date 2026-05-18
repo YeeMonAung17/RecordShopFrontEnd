@@ -1,0 +1,15 @@
+﻿@using RecordShopFrontEnd.Models
+<h3>RecordSummary</h3>
+
+<div>
+    <p><strong>Title:</strong> @Record.Title</p>
+    <p><strong>Artist:</strong> @Record.Artist</p>
+    <p><strong>Genre:</strong> @Record.Genre</p>
+    <p><strong>Price:</strong> @Record.Price.ToString("C")</p>
+</div>
+
+@code {
+    [Parameter]
+    public Album Record { get; set; } = default!;
+   
+}

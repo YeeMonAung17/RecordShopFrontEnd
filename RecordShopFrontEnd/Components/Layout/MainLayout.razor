@@ -1,0 +1,31 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page">
+    <header class="header">
+        <div class="logo-section">
+            <h1>Record Shop</h1>
+            <p>Your favorite place for vinyl records</p>
+        </div>
+   
+    <nav>
+        <NavMenu/>
+    </nav>
+    </header>
+
+    <main class="main-content">
+        
+
+            @Body
+    </main>
+    <footer class="footer">
+    <div class="footer-content">
+        <p>© @DateTime.Now.Year YEE</p>
+    </div>
+    </footer>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>

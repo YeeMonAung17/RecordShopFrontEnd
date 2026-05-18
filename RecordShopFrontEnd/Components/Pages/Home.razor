@@ -1,0 +1,18 @@
+﻿@page "/"
+@using RecordShopFrontEnd.Models
+
+<PageTitle>Home</PageTitle>
+<h2>Welcome to Vinyl Vault</h2>
+
+<p>Browse records, discover artists, and build your collection.</p>
+
+<RecordsSummaryList Records="Records" />
+
+@code{
+    private List<Album> Records = new List<Album>()
+    {
+        new Album { Id = 1, Title = "Abbey Road", Artist = "The Beatles", Genre = "Rock", Price = 20 },
+        new Album { Id = 2, Title = "Thriller", Artist = "Michael Jackson", Genre = "Pop", Price = 18 },
+        new Album { Id = 3, Title = "Kind of Blue", Artist = "Miles Davis", Genre = "Jazz", Price = 15 },
+    };
+}
