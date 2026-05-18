@@ -6,13 +6,18 @@
 
 <p>Browse records, discover artists, and build your collection.</p>
 
-<RecordsSummaryList Records="Records" />
+<RecordDetails Record="album" />
 
-@code{
-    private List<Album> Records = new List<Album>()
+
+@code {
+    private Album album = new()
     {
-        new Album { Id = 1, Title = "Abbey Road", Artist = "The Beatles", Genre = "Rock", Price = 20 },
-        new Album { Id = 2, Title = "Thriller", Artist = "Michael Jackson", Genre = "Pop", Price = 18 },
-        new Album { Id = 3, Title = "Kind of Blue", Artist = "Miles Davis", Genre = "Jazz", Price = 15 },
+        Id = 1,
+        Title = "Rumours",
+        Artist = "Fleetwood Mac",
+        Genre = "Rock",
+        Year = 1977,
+        Price = 24,
+        Stock = 8
     };
 }
