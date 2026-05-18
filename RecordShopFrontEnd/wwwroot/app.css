@@ -102,3 +102,39 @@ footer {
     font-size: 0.9rem;
     opacity: 0.85;
 }
+
+.button {
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+    .button.is-link {
+        background-color: #7a1c1c;
+        color: white;
+    }
+
+        .button.is-link:hover {
+            background-color: #275fb8;
+        }
+
+
+.field {
+    margin-bottom: 1rem;
+}
+
+.input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+    .input:focus {
+        outline: none;
+        border-color: #e5d38c;
+        box-shadow: 0 0 0 2px rgba(50, 115, 220, 0.2);
+    }
