@@ -1,0 +1,40 @@
+﻿@using RecordShopFrontEnd.Models
+
+
+@if(Record == null)
+{
+    <div>No record selected.</div>
+} else
+{
+    <h3>RecordDetails</h3>
+
+    <EditForm Model="Record">
+        <div class="field">
+            <InputText @bind-Value="Record.Title" class="input" placeholder="Title" />
+        </div>
+        <div class="field">
+            <InputText @bind-Value="Record.Artist" class="input" placeholder="Artist" />
+        </div>
+        <div class="field">
+            <InputText @bind-Value="Record.Genre" class="input" placeholder="Genre" />
+        </div>
+        <div class="field">
+            <InputNumber @bind-Value="Record.Year" class="input" placeholder="Year" />
+        </div>
+        <div class="field">
+            <InputNumber @bind-Value="Record.Price" class="input" placeholder="Price" />
+        </div>
+        <div class="field">
+            <InputNumber @bind-Value="Record.Stock" class="input" placeholder="Stock" />
+        </div>
+        <button type="button" class="button is-link">Save Changes</button>
+
+    </EditForm>
+
+}
+
+
+@code {
+    [Parameter]
+    public Album? Record { get; set; }
+}

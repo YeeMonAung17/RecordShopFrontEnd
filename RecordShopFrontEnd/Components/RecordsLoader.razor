@@ -1,0 +1,46 @@
+﻿@using System.Net.Http.Json;
+@using RecordShopFrontEnd.Models
+
+
+<h3>RecordsLoader</h3>
+
+@if(IsLoading)
+{
+        <div>Loading records...</div>
+
+}else if(!string.IsNullOrEmpty(ErrorMessage)){
+    <div class="error">Error loading records: @ErrorMessage</div>
+
+    }else if (Records.Any()){
+	<div><RecordsSummaryList Records="Records" /></div>
+
+}else {
+	<div>No Record Found.</div>
+}
+
+@code {
+    private List<Album> Records{ get; set; } = new List<Album>();
+    public bool IsLoading { get; set; } = true;
+    public string? ErrorMessage { get; set; } 
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            using var httpClient = new HttpClient();
+
+            string apiUrl = "http://localhost:5000/api/album";
+
+            Records = await httpClient.GetFromJsonAsync<List<Album>>(apiUrl) ?? new List<Album>();
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+}
