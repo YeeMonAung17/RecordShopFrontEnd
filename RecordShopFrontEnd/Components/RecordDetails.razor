@@ -16,21 +16,27 @@
     <EditForm Model="updatedRecord">
         <div class="field">
             <InputText @bind-Value="updatedRecord.Title" class="input" placeholder="Title" />
+                <ValidationMessage For="@(() => updatedRecord.Title)" />
         </div>
         <div class="field">
             <InputText @bind-Value="updatedRecord.Artist" class="input" placeholder="Artist" />
+                <ValidationMessage For="@(() => updatedRecord.Artist)" />
         </div>
         <div class="field">
             <InputText @bind-Value="updatedRecord.Genre" class="input" placeholder="Genre" />
+                <ValidationMessage For="@(() => updatedRecord.Genre)" />
         </div>
         <div class="field">
             <InputNumber @bind-Value="updatedRecord.Year" class="input" placeholder="Year" />
+                <ValidationMessage For="@(() => updatedRecord.Year)" />
         </div>
         <div class="field">
             <InputNumber @bind-Value="updatedRecord.Price" class="input" placeholder="Price" />
+                <ValidationMessage For="@(() => updatedRecord.Price)" />
         </div>
         <div class="field">
             <InputNumber @bind-Value="updatedRecord.Stock" class="input" placeholder="Stock" />
+                <ValidationMessage For="@(() => updatedRecord.Stock)" />
         </div>
         <button type="button" class="button is-link" @onclick="saveChanges">Save Changes</button>
 
