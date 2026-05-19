@@ -1,40 +1,126 @@
 ﻿@using RecordShopFrontEnd.Models
+@using System.Text.Json
+@using System.Net.Http.Json;
 
 
-@if(Record == null)
+
+@if (updatedRecord == null)
 {
     <div>No record selected.</div>
 } else
 {
     <h3>RecordDetails</h3>
 
-    <EditForm Model="Record">
+    <EditForm Model="updatedRecord">
         <div class="field">
-            <InputText @bind-Value="Record.Title" class="input" placeholder="Title" />
+            <InputText @bind-Value="updatedRecord.Title" class="input" placeholder="Title" />
         </div>
         <div class="field">
-            <InputText @bind-Value="Record.Artist" class="input" placeholder="Artist" />
+            <InputText @bind-Value="updatedRecord.Artist" class="input" placeholder="Artist" />
         </div>
         <div class="field">
-            <InputText @bind-Value="Record.Genre" class="input" placeholder="Genre" />
+            <InputText @bind-Value="updatedRecord.Genre" class="input" placeholder="Genre" />
         </div>
         <div class="field">
-            <InputNumber @bind-Value="Record.Year" class="input" placeholder="Year" />
+            <InputNumber @bind-Value="updatedRecord.Year" class="input" placeholder="Year" />
         </div>
         <div class="field">
-            <InputNumber @bind-Value="Record.Price" class="input" placeholder="Price" />
+            <InputNumber @bind-Value="updatedRecord.Price" class="input" placeholder="Price" />
         </div>
         <div class="field">
-            <InputNumber @bind-Value="Record.Stock" class="input" placeholder="Stock" />
+            <InputNumber @bind-Value="updatedRecord.Stock" class="input" placeholder="Stock" />
         </div>
-        <button type="button" class="button is-link">Save Changes</button>
+        <button type="button" class="button is-link" @onclick="saveChanges">Save Changes</button>
 
     </EditForm>
 
-}
+
+
+    @if(showUpdatedRecord)
+    {
+        <div class="notification is-success mt-4">
+            Save button clicked. This is the updated record data:
+        </div>
+
+        <pre>@JsonSerializer.Serialize(updatedRecord, new JsonSerializerOptions { WriteIndented = true })</pre>
+    }
+
+    @if(!string.IsNullOrEmpty(Message))
+    {
+        <div class="notification is-info mt-4">
+            @Message
+         </div>
+    }
+    }
+   
+   
+
 
 
 @code {
     [Parameter]
     public Album? Record { get; set; }
+
+    private Album? updatedRecord;
+
+    public bool showUpdatedRecord = false;
+
+    public string? Message;
+
+    protected override void OnParametersSet()
+    {
+        if (Record != null)
+        {
+            // Create a copy of the record to edit
+            updatedRecord = new Album
+                {
+                    Id = Record.Id,
+                    Title = Record.Title,
+                    Artist = Record.Artist,
+                    Genre = Record.Genre,
+                    Year = Record.Year,
+                    Price = Record.Price,
+                    Stock = Record.Stock
+                };
+        }
+    }
+
+    // [Inject]
+    // private HttpClient HttpClient { get; set; } = default!;
+
+    private async Task saveChanges()
+    {
+        Message = "Save Button was clicked. Attempting to update record...";
+        if (updatedRecord == null)
+        {
+            Message = "No record selected.";
+            return;
+        }
+
+        try
+        {
+            using var httpClient = new HttpClient();
+            string apiUrl = $"http://localhost:5000/api/album/{updatedRecord.Id}";
+
+            var response = await httpClient.PutAsJsonAsync(apiUrl, updatedRecord);
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                Message = "Record updated successfully.";
+                showUpdatedRecord = true;
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                Message = $"Failed to update record. Status code: {response.StatusCode}. Error: {errorContent}";
+            }
+        }
+        catch (Exception ex)
+        {
+            Message = $"Error updating record: {ex.Message}";
+        }
+    }
+
+   
 }

@@ -1,23 +1,61 @@
 ﻿@page "/"
 @using RecordShopFrontEnd.Models
+@using System.Net.Http.Json
+@rendermode InteractiveServer
+
+
 
 <PageTitle>Home</PageTitle>
 <h2>Welcome to Vinyl Vault</h2>
 
 <p>Browse records, discover artists, and build your collection.</p>
 
-<RecordDetails Record="album" />
+@if (IsLoading)
+{
+    <div>Loading records...</div>
 
+}
+else if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="error">Error loading records: @ErrorMessage</div>
+
+}
+else if (album != null)
+{
+    <div><RecordDetails Record="@album" /></div>
+
+}
+else
+{
+    <div>No Record Found.</div>
+}
 
 @code {
-    private Album album = new()
+   private Album? album;
+
+    public bool IsLoading { get; set; } = true;
+    public string? ErrorMessage { get; set; }
+
+    // [Inject]
+    // private HttpClient HttpClient { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
     {
-        Id = 1,
-        Title = "Rumours",
-        Artist = "Fleetwood Mac",
-        Genre = "Rock",
-        Year = 1977,
-        Price = 24,
-        Stock = 8
-    };
+        try
+        {
+            using var httpClient = new HttpClient();
+            string apiUrl = "http://localhost:5000/api/album";
+            var records = await httpClient.GetFromJsonAsync<List<Album>>(apiUrl);
+            album = records?.FirstOrDefault();
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
 }
