@@ -6,18 +6,20 @@
 
 
 <PageTitle>Home</PageTitle>
-<h2>Welcome to Vinyl Vault</h2>
 
-<p>Browse records, discover artists, and build your collection.</p>
+<section class="section">
+    <div class="container">
+        <h1 class="title">Vinyl Vault</h1>
+        <p class="subtitle">Browse records, discover artists, and build your collection.</p>
 
 @if (IsLoading)
 {
-    <div>Loading records...</div>
+    <div class="notification is-info">Loading records...</div>
 
 }
 else if (!string.IsNullOrEmpty(ErrorMessage))
 {
-    <div class="error">Error loading records: @ErrorMessage</div>
+    <div class="notification is-danger">Error loading records: @ErrorMessage</div>
 
 }
 else if (album != null)
@@ -27,8 +29,12 @@ else if (album != null)
 }
 else
 {
-    <div>No Record Found.</div>
+    <div class="notification is-warning">No Record Found.</div>
 }
+    </div>
+
+</section>
+
 
 @code {
    private Album? album;
@@ -36,8 +42,7 @@ else
     public bool IsLoading { get; set; } = true;
     public string? ErrorMessage { get; set; }
 
-    // [Inject]
-    // private HttpClient HttpClient { get; set; } = default!;
+   
 
     protected override async Task OnInitializedAsync()
     {
