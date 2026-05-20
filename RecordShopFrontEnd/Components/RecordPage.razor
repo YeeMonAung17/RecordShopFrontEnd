@@ -1,0 +1,59 @@
+﻿@rendermode InteractiveServer
+@page "/records/{id:int}"
+@using RecordShopFrontEnd.Models
+
+
+<PageTitle>Record Page</PageTitle>
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">Record Page</h1>
+        <p class="subtitle">You can see Specific Record Details , can also edit/save changes for this record here.</p>
+    </div>
+
+    @if(IsLoading)
+    {
+        <div class="notification is-info">Loading record details...</div>
+    }
+    else if (!string.IsNullOrEmpty(ErrorMessage))
+    {
+        <div class="notification is-danger">Error loading record: @ErrorMessage</div>
+    }
+    else if (Record != null)
+    {
+        <RecordDetails Record="Record" />
+    }else
+    {
+        <div class="notification is-warning">Record not found.</div>
+    }
+</section>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; } 
+
+    public Album? Record { get; set; }
+
+    public bool IsLoading { get; set; } = true;
+
+    public string? ErrorMessage { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        try
+        {
+            var httpClient = new HttpClient();
+            string apiUrl = $"http://localhost:5000/api/album/{Id}";
+            Record = await httpClient.GetFromJsonAsync<Album>(apiUrl);
+
+        }catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+}
