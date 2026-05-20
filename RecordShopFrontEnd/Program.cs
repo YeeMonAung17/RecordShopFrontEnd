@@ -23,9 +23,13 @@ else
 }
 
 app.UseHttpsRedirection();
+app.UseStatusCodePagesWithReExecute("/not-found");
 
 app.UseStaticFiles();
+app.UseRouting();
 app.UseAntiforgery();
+
+
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
