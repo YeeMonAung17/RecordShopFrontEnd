@@ -1,66 +1,45 @@
 ﻿@page "/"
-@using RecordShopFrontEnd.Models
-@using System.Net.Http.Json
-@rendermode InteractiveServer
-
-
 
 <PageTitle>Home</PageTitle>
 
-<section class="section">
-    <div class="container">
-        <h1 class="title">Vinyl Vault</h1>
-        <p class="subtitle">Browse records, discover artists, and build your collection.</p>
+<section class="hero is-success">
+    <div class="hero-body">
+        <div class="container">
+            <p class="title is-1">Vinyl Vault</p>
+            <p class="subtitle is-4">
+                Browse records, discover artists, and build your collection.
+            </p>
 
-@if (IsLoading)
-{
-    <div class="notification is-info">Loading records...</div>
-
-}
-else if (!string.IsNullOrEmpty(ErrorMessage))
-{
-    <div class="notification is-danger">Error loading records: @ErrorMessage</div>
-
-}
-else if (album != null)
-{
-    <div><RecordDetails Record="@album" /></div>
-
-}
-else
-{
-    <div class="notification is-warning">No Record Found.</div>
-}
+            <a class="button is-light is-medium" href="/records">
+                Browse Records
+            </a>
+        </div>
     </div>
-
 </section>
 
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <div class="box">
+                    <h2 class="title is-4">Browse Vinyl</h2>
+                    <p>Explore albums by title, artist, genre, and release year.</p>
+                </div>
+            </div>
 
-@code {
-   private Album? album;
+            <div class="column">
+                <div class="box">
+                    <h2 class="title is-4">Check Stock</h2>
+                    <p>See what is currently available in the record shop inventory.</p>
+                </div>
+            </div>
 
-    public bool IsLoading { get; set; } = true;
-    public string? ErrorMessage { get; set; }
-
-   
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            using var httpClient = new HttpClient();
-            string apiUrl = "http://localhost:5000/api/album";
-            var records = await httpClient.GetFromJsonAsync<List<Album>>(apiUrl);
-            album = records?.FirstOrDefault();
-        }
-        catch (Exception ex)
-        {
-            ErrorMessage = ex.Message;
-        }
-        finally
-        {
-            IsLoading = false;
-        }
-    }
-
-}
+            <div class="column">
+                <div class="box">
+                    <h2 class="title is-4">Manage Records</h2>
+                    <p>Open a record page to view details and update album information.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
