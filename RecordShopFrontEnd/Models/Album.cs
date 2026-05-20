@@ -23,5 +23,8 @@ namespace RecordShopFrontEnd.Models
 
         [Range(0, int.MaxValue, ErrorMessage = "Stock must be a non-negative value.")]
         public int Stock { get; set; }
+
+
+        public string? ImageUrl { get; set; }
     }
 }

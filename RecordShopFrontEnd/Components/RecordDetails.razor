@@ -38,6 +38,10 @@
             <InputNumber @bind-Value="updatedRecord.Stock" class="input" placeholder="Stock" />
                 <ValidationMessage For="@(() => updatedRecord.Stock)" />
         </div>
+            <div class="field">
+                <label class="label">Image URL</label>
+                <InputText @bind-Value="updatedRecord.ImageUrl" class="input" placeholder="Image URL" />
+            </div>
         <button type="button" class="button is-link" @onclick="saveChanges">Save Changes</button>
 
     </EditForm>
@@ -89,7 +93,8 @@
                     Genre = Record.Genre,
                     Year = Record.Year,
                     Price = Record.Price,
-                    Stock = Record.Stock
+                    Stock = Record.Stock,
+                ImageUrl = Record.ImageUrl
                 };
         }
     }

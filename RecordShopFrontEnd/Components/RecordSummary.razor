@@ -1,7 +1,14 @@
 ﻿@using RecordShopFrontEnd.Models
 
 <div class="box">
-    <p><strong>Title:</strong> @Record.Title</p>
+    @if(!string.IsNullOrEmpty(Record.ImageUrl))
+    {
+        <figure class="image is-square mb-3">
+            <img src="@Record.ImageUrl" alt="@Record.Title" />
+        </figure>
+    }
+
+    <h2 class="title is-5">@Record.Title</h2>
     <p><strong>Artist:</strong> @Record.Artist</p>
     <p><strong>Genre:</strong> @Record.Genre</p>
     <p><strong>Price:</strong> @Record.Price.ToString("C")</p>
