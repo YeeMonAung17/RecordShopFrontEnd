@@ -1,8 +1,6 @@
 ﻿@using RecordShopFrontEnd.Models
-@using System.Text.Json
 @using System.Net.Http.Json;
-
-
+@inject IConfiguration Configuration
 
 @if (updatedRecord == null)
 {
@@ -11,8 +9,7 @@
 {
 
     <div class="box">
-    <h3 class="title is-4">RecordDetails</h3>
-
+    <h2 class="title is-4">RecordDetails</h2>
     <EditForm Model="updatedRecord">
         <div class="field">
             <InputText @bind-Value="updatedRecord.Title" class="input" placeholder="Title" />
@@ -39,24 +36,12 @@
                 <ValidationMessage For="@(() => updatedRecord.Stock)" />
         </div>
             <div class="field">
-                <label class="label">Image URL</label>
                 <InputText @bind-Value="updatedRecord.ImageUrl" class="input" placeholder="Image URL" />
             </div>
         <button type="button" class="button is-link" @onclick="saveChanges">Save Changes</button>
 
     </EditForm>
     </div>
-
-
-
-    @if(showUpdatedRecord)
-    {
-        <div class="notification is-success mt-4">
-            Save button clicked. This is the updated record data:
-        </div>
-
-        <pre>@JsonSerializer.Serialize(updatedRecord, new JsonSerializerOptions { WriteIndented = true })</pre>
-    }
 
     @if(!string.IsNullOrEmpty(Message))
     {
@@ -65,18 +50,13 @@
          </div>
     }
     }
-   
-   
-
-
-
+  
 @code {
     [Parameter]
     public Album? Record { get; set; }
 
     private Album? updatedRecord;
 
-    public bool showUpdatedRecord = false;
 
     public string? Message;
 
@@ -84,7 +64,6 @@
     {
         if (Record != null)
         {
-            // Create a copy of the record to edit
             updatedRecord = new Album
                 {
                     Id = Record.Id,
@@ -98,10 +77,6 @@
                 };
         }
     }
-
-    // [Inject]
-    // private HttpClient HttpClient { get; set; } = default!;
-
     private async Task saveChanges()
     {
         Message = "Save Button was clicked. Attempting to update record...";
@@ -114,15 +89,14 @@
         try
         {
             using var httpClient = new HttpClient();
-            string apiUrl = $"http://localhost:5000/api/album/{updatedRecord.Id}";
-
+            string albumApiUrl = Configuration["ApiSettings:AlbumApiUrl"]!;
+            string apiUrl = $"{albumApiUrl}/{updatedRecord.Id}";
             var response = await httpClient.PutAsJsonAsync(apiUrl, updatedRecord);
 
 
             if (response.IsSuccessStatusCode)
             {
                 Message = "Record updated successfully.";
-                showUpdatedRecord = true;
             }
             else
             {
@@ -135,6 +109,4 @@
             Message = $"Error updating record: {ex.Message}";
         }
     }
-
-   
 }

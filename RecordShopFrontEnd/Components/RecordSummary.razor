@@ -1,21 +1,33 @@
 ﻿@using RecordShopFrontEnd.Models
 
-<div class="box">
-    @if(!string.IsNullOrEmpty(Record.ImageUrl))
-    {
-        <figure class="image is-square mb-3">
-            <img src="@Record.ImageUrl" alt="@Record.Title" />
-        </figure>
-    }
+<a class="record-card-link" href="/records/@Record.Id">
+    <div class="box record-card">
+        @if (!string.IsNullOrWhiteSpace(Record.ImageUrl))
+        {
+            <figure class="image is-square mb-3">
+                <img class="record-card-image" src="@Record.ImageUrl" alt="@Record.Title" />
+            </figure>
+        }
 
-    <h2 class="title is-5">@Record.Title</h2>
-    <p><strong>Artist:</strong> @Record.Artist</p>
-    <p><strong>Genre:</strong> @Record.Genre</p>
-    <p><strong>Price:</strong> @Record.Price.ToString("C")</p>
-</div>
+        <h2 class="title is-5">@Record.Title</h2>
+        <p class="subtitle is-6">@Record.Artist</p>
+
+        <div class="tags">
+            <span class="tag is-link">@Record.Genre</span>
+            <span class="tag is-light">@Record.Year</span>
+        </div>
+
+        <p><strong>Price:</strong> £@Record.Price</p>
+        <p><strong>Stock:</strong> @Record.Stock</p>
+    </div>
+</a>
 
 @code {
     [Parameter]
-    public Album Record { get; set; } = default!;
-   
+    public Album Record { get; set; } = new Album
+    {
+        Title = string.Empty,
+        Artist = string.Empty,
+        Genre = string.Empty
+    };
 }

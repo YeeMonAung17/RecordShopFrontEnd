@@ -1,32 +1,65 @@
 ﻿@rendermode InteractiveServer
 @page "/records/{id:int}"
 @using RecordShopFrontEnd.Models
+@using System.Net.Http.Json
+@inject IConfiguration Configuration
 
-
-<PageTitle>Record Page</PageTitle>
+<PageTitle>Record Details</PageTitle>
 
 <section class="section">
     <div class="container">
-        <h1 class="title">Record Page</h1>
-        <p class="subtitle">You can see Specific Record Details , can also edit/save changes for this record here.</p>
-    </div>
+        <div class="mb-5">
+            <a class="button is-light" href="/records">← Back to records</a>
+        </div>
 
-    @if(IsLoading)
-    {
-        <div class="notification is-info">Loading record details...</div>
-    }
-    else if (!string.IsNullOrEmpty(ErrorMessage))
-    {
-        <div class="notification is-danger">Error loading record: @ErrorMessage</div>
-    }
-    else if (Record != null)
-    {
-        <RecordDetails Record="Record" />
-    }else
-    {
-        <div class="notification is-warning">Record not found.</div>
-    }
+        @if (IsLoading)
+        {
+            <div class="notification is-info">Loading record details...</div>
+        }
+        else if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="notification is-danger">@ErrorMessage</div>
+        }
+        else if (Record != null)
+        {
+            <div class="box">
+                <div class="columns is-variable is-6 is-vcentered">
+                    <div class="column is-one-third">
+                        @if (!string.IsNullOrWhiteSpace(Record.ImageUrl))
+                        {
+                            <figure class="image is-square">
+                                <img class="record-cover" src="@Record.ImageUrl" alt="@Record.Title" />
+                            </figure>
+                        }
+                        else
+                        {
+                            <div class="notification is-warning">No image available.</div>
+                        }
+                    </div>
+
+                    <div class="column">
+                        <h1 class="title is-2">@Record.Title</h1>
+                        <p class="subtitle is-4">@Record.Artist</p>
+
+                        <div class="tags mb-4">
+                            <span class="tag is-link">@Record.Genre</span>
+                            <span class="tag is-light">@Record.Year</span>
+                            <span class="tag is-success">£@Record.Price</span>
+                            <span class="tag is-info">@Record.Stock in stock</span>
+                        </div>
+
+                        <RecordDetails Record="Record" />
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="notification is-warning">Record not found.</div>
+        }
+    </div>
 </section>
+
 
 @code {
 
@@ -39,16 +72,18 @@
 
     public string? ErrorMessage { get; set; }
 
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnInitializedAsync()
     {
         try
         {
-            var httpClient = new HttpClient();
-            string apiUrl = $"http://localhost:5000/api/album/{Id}";
+            using var httpClient = new HttpClient();
+            string albumApiUrl = Configuration["ApiSettings:AlbumApiUrl"]!;
+            string apiUrl = $"{albumApiUrl}/{Id}";
             Record = await httpClient.GetFromJsonAsync<Album>(apiUrl);
 
         }catch (Exception ex)
         {
+            ErrorMessage = "Sorry, we couldn't load this record. Please try again later.";
             ErrorMessage = ex.Message;
         }
         finally

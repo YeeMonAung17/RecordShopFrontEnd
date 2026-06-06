@@ -1,18 +1,15 @@
 ﻿@using RecordShopFrontEnd.Models
 
-<h3 class="title is-4">RecordsSummaryList</h3>
 <div class="columns is-multiline">
     @foreach (var record in Records)
     {
         <div class="column is-one-third">
             <RecordSummary Record="record" />
         </div>
-
     }
 </div>
 
 @code {
     [Parameter]
     public List<Album> Records { get; set; } = new List<Album>();
-
 }
