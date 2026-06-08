@@ -79,7 +79,6 @@
     }
     private async Task saveChanges()
     {
-        Message = "Save Button was clicked. Attempting to update record...";
         if (updatedRecord == null)
         {
             Message = "No record selected.";
@@ -101,7 +100,8 @@
             else
             {
                 var errorContent = await response.Content.ReadAsStringAsync();
-                Message = $"Failed to update record. Status code: {response.StatusCode}. Error: {errorContent}";
+                Message = "Failed to update record. Please try again.";
+                Console.WriteLine($"Update failed: {response.StatusCode} - {errorContent}");
             }
         }
         catch (Exception ex)

@@ -84,7 +84,7 @@
         }catch (Exception ex)
         {
             ErrorMessage = "Sorry, we couldn't load this record. Please try again later.";
-            ErrorMessage = ex.Message;
+            Console.WriteLine($"Error loading record: {ex.Message}");
         }
         finally
         {
