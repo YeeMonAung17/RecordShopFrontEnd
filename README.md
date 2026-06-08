@@ -5,9 +5,11 @@ connected to the Record Shop REST API.
 
 ## Features
 - Browse all records in the catalogue
-- Search for records by title or artist
-- Add, edit, and delete records
-- Connected to Record Shop Backend API
+- View individual album details
+- Update existing album details
+- Display album cover images
+- Navigate between list and detail pages
+- Connected to the Record Shop Backend API
 
 ## Tech Stack
 - Blazor WebAssembly
