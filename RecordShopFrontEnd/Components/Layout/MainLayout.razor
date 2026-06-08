@@ -1,25 +1,25 @@
 ﻿@inherits LayoutComponentBase
 
+
 <div class="page">
     <header class="header">
         <div class="logo-section">
-            <h1>Record Shop</h1>
-            <p>Album inventory dashboard</p>
+            <h1>Album inventory dashboard</h1>
         </div>
 
         <nav class="site-nav" aria-label="Main navigation">
-        <NavMenu/>
-    </nav>
+            <NavMenu />
+        </nav>
     </header>
 
     <main class="main-content">
-            @Body
+        @Body
     </main>
 
-    <footer class="footer">
-    <div class="footer-content">
-        <p>© @DateTime.Now.Year YEE MON AUNG</p>
-    </div>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>© @DateTime.Now.Year YEE MON AUNG</p>
+        </div>
     </footer>
 </div>
 
