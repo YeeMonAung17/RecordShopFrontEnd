@@ -2,12 +2,36 @@
 @rendermode InteractiveServer
 
 <PageTitle>All Records</PageTitle>
-<section class="section">
+@page "/records"
+
+<PageTitle>Store Catalogue — Vinyl Vault</PageTitle>
+
+<section class="section" style="padding-top: 3rem; padding-bottom: 4rem; background: #ffffff;">
     <div class="container">
-        <h1 class="title">All Records</h1>
-        <p class="subtitle">Explore our entire collection of vinyl records.</p>
-        <RecordsLoader />
+
+        <!-- Modernized Layout Header with Staff Actions -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #111; padding-bottom: 1.5rem; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <h1 class="title is-2" style="font-weight: 800; letter-spacing: -0.04em; margin: 0; color: #111;">
+                    Store Catalogue
+                </h1>
+                <p style="color: #666; margin-top: 0.25rem; font-size: 0.95rem; font-weight: 300;">
+                    Review, audit, and manage active physical vinyl inventory.
+                </p>
+            </div>
+            <div>
+                <a class="button is-dark" href="records/new" style="font-weight: 600; border-radius: 4px; background: #111;">
+                    + Log New Arrival
+                </a>
+            </div>
         </div>
+
+        <!-- Safe Core Loading Grid Content -->
+        <div class="store-grid-viewport">
+            <RecordsLoader />
+        </div>
+
+    </div>
 </section>
 
 

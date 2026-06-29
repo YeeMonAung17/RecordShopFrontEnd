@@ -97,12 +97,12 @@ h1:focus {
 }
 
     .nav-link:hover {
-        background-color: #2a2a2a;
+        background-color: #e9e8a6;
         color: white;
     }
 
     .nav-link.active {
-        background-color: #48c78e;
+        background-color: #e5d38c;
         color: #111;
     }
 

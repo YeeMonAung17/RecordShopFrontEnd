@@ -6,59 +6,89 @@
 
 <PageTitle>Record Details</PageTitle>
 
-<section class="section">
+<section class="section" style="padding-top: 3rem; padding-bottom: 4rem; background: #ffffff;">
     <div class="container">
-        <div class="mb-5">
-            <a class="button is-light" href="/records">← Back to records</a>
+
+        <div style="margin-bottom: 2.5rem;">
+            <a href="/records" style="color: #666; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.2s;" onmouseover="this.style.color='#111'" onmouseout="this.style.color='#666'">
+                <span>&larr;</span> Back to record stock
+            </a>
         </div>
 
         @if (IsLoading)
         {
-            <div class="notification is-info">Loading record details...</div>
+            <div style="padding: 1.5rem; background: #fafafa; border: 1px solid #eaeaea; color: #666; border-radius: 4px; font-size: 0.95rem;">
+                Reading file records...
+            </div>
         }
         else if (!string.IsNullOrEmpty(ErrorMessage))
         {
-            <div class="notification is-danger">@ErrorMessage</div>
+            <div style="padding: 1.5rem; background: #fff5f5; border: 1px solid #ffcccb; color: #cc0000; border-radius: 4px; font-size: 0.95rem; font-weight: 500;">
+                @ErrorMessage
+            </div>
         }
         else if (Record != null)
         {
-            <div class="box">
-                <div class="columns is-variable is-6 is-vcentered">
-                    <div class="column is-one-third">
-                        @if (!string.IsNullOrWhiteSpace(Record.ImageUrl))
-                        {
-                            <figure class="image is-square">
-                                <img class="record-cover" src="@Record.ImageUrl" alt="@Record.Title" />
+            <div class="columns is-variable is-8">
+
+                <div class="column is-4">
+                    @if (!string.IsNullOrWhiteSpace(Record.ImageUrl))
+                    {
+                        <div style="background: #fafafa; border: 1px solid #eaeaea; padding: 1rem; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+                            <figure class="image is-square" style="margin: 0;">
+                                <img src="@Record.ImageUrl" alt="@Record.Title" style="border-radius: 4px; object-fit: cover; width: 100%; height: 100%; display: block;" />
                             </figure>
-                        }
-                        else
-                        {
-                            <div class="notification is-warning">No image available.</div>
-                        }
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="aspect-ratio: 1/1; background: #fafafa; border: 1px solid #eaeaea; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #888; font-size: 0.9rem; font-family: monospace;">
+                            No artwork loaded
+                        </div>
+                    }
+                </div>
+
+                <div class="column is-8">
+                    <div style="border-bottom: 2px solid #111; padding-bottom: 1.5rem; margin-bottom: 2rem;">
+                        <h1 class="title is-2" style="font-weight: 800; letter-spacing: -0.04em; margin-bottom: 0.5rem; color: #111;">
+                            @Record.Title
+                        </h1>
+                        <p class="subtitle is-4" style="color: #555; font-weight: 400; margin: 0;">
+                            @Record.Artist
+                        </p>
                     </div>
 
-                    <div class="column">
-                        <h1 class="title is-2">@Record.Title</h1>
-                        <p class="subtitle is-4">@Record.Artist</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.5rem;">
+                        <span style="font-size: 0.8rem; background: #f4f4f4; color: #111; border: 1px solid #eaeaea; padding: 4px 10px; border-radius: 4px; font-weight: 600;">
+                            @Record.Genre
+                        </span>
+                        <span style="font-size: 0.8rem; background: #fafafa; color: #666; border: 1px solid #eaeaea; padding: 4px 10px; border-radius: 4px; font-family: monospace;">
+                            Press Year: @Record.Year
+                        </span>
+                        <span style="font-size: 0.8rem; background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; padding: 4px 10px; border-radius: 4px; font-weight: 700;">
+                            &pound;@Record.Price
+                        </span>
+                        <span style="font-size: 0.8rem; background: @(Record.Stock > 0 ? "#eff6ff" : "#fff5f5"); color: @(Record.Stock > 0 ? "#1e40af" : "#cc0000"); border: 1px solid @(Record.Stock > 0 ? "#bfdbfe" : "#ffcccb"); padding: 4px 10px; border-radius: 4px; font-weight: 600;">
+                            @(Record.Stock > 0 ? $"{Record.Stock} copies available" : "Out of stock")
+                        </span>
+                    </div>
 
-                        <div class="tags mb-4">
-                            <span class="tag is-link">@Record.Genre</span>
-                            <span class="tag is-light">@Record.Year</span>
-                            <span class="tag is-success">£@Record.Price</span>
-                            <span class="tag is-info">@Record.Stock in stock</span>
-                        </div>
-
+                    <div class="additional-metadata-wrapper">
                         <RecordDetails Record="Record" />
                     </div>
                 </div>
+
             </div>
         }
         else
         {
-            <div class="notification is-warning">Record not found.</div>
+            <div style="padding: 1.5rem; background: #fafafa; border: 1px solid #eaeaea; color: #888; border-radius: 4px; font-size: 0.95rem; text-align: center;">
+                The requested entry does not exist in the active store log.
+            </div>
         }
     </div>
 </section>
+
 
 
 @code {

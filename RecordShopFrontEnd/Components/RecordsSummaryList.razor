@@ -1,13 +1,14 @@
 ﻿@using RecordShopFrontEnd.Models
 
-<div class="columns is-multiline">
+<div class="columns is-multiline is-variable is-4">
     @foreach (var record in Records)
     {
-        <div class="column is-one-third">
+        <div class="column is-4-tablet is-3-desktop" style="margin-bottom: 2rem;">
             <RecordSummary Record="record" />
         </div>
     }
 </div>
+
 
 @code {
     [Parameter]

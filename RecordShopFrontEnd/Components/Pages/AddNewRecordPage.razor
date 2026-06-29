@@ -5,58 +5,134 @@
 @inject IConfiguration Configuration
 @inject NavigationManager NavigationManager
 
+
 <PageTitle>Add New Record</PageTitle>
 
 <section class="section">
     <div class="container">
-        <h1 class="title">Add New Record</h1>
-
-        <div class="box">
-            <EditForm Model="addNewRecord" OnValidSubmit="AddRecord">
-                <DataAnnotationsValidator />
-
-                <div class="field">
-                    <InputText @bind-Value="addNewRecord.Title" class="input" placeholder="Title" />
-                    <ValidationMessage For="@(() => addNewRecord.Title)" />
+        <div class="level mb-5">
+            <div class="level-left">
+                <div>
+                    <h1 class="title">Add New Record</h1>
+                    <p class="subtitle">Create a new album entry for the Vinyl Vault catalogue.</p>
                 </div>
+            </div>
 
-                <div class="field">
-                    <InputText @bind-Value="addNewRecord.Artist" class="input" placeholder="Artist" />
-                    <ValidationMessage For="@(() => addNewRecord.Artist)" />
+            <div class="level-right">
+                <a class="button is-light" href="/records">Back to Records</a>
+            </div>
+        </div>
+
+        <div class="columns is-variable is-6">
+            <div class="column is-two-thirds">
+                <div class="box">
+                    <h2 class="title is-4">Record Information</h2>
+
+                    <EditForm Model="addNewRecord" OnValidSubmit="AddRecord">
+                        <DataAnnotationsValidator />
+
+                        <div class="columns">
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label">Title</label>
+                                    <InputText @bind-Value="addNewRecord.Title" class="input" placeholder="e.g. Rumours" />
+                                    <ValidationMessage For="@(() => addNewRecord.Title)" />
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label">Artist</label>
+                                    <InputText @bind-Value="addNewRecord.Artist" class="input" placeholder="e.g. Fleetwood Mac" />
+                                    <ValidationMessage For="@(() => addNewRecord.Artist)" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="columns">
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label">Genre</label>
+                                    <InputText @bind-Value="addNewRecord.Genre" class="input" placeholder="e.g. Rock" />
+                                    <ValidationMessage For="@(() => addNewRecord.Genre)" />
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label">Year</label>
+                                    <InputNumber @bind-Value="addNewRecord.Year" class="input" />
+                                    <ValidationMessage For="@(() => addNewRecord.Year)" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="columns">
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label">Price</label>
+                                    <InputNumber @bind-Value="addNewRecord.Price" class="input" />
+                                    <ValidationMessage For="@(() => addNewRecord.Price)" />
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label">Stock</label>
+                                    <InputNumber @bind-Value="addNewRecord.Stock" class="input" />
+                                    <ValidationMessage For="@(() => addNewRecord.Stock)" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Image URL</label>
+                            <InputText @bind-Value="addNewRecord.ImageUrl" class="input" placeholder="http://localhost:5000/images/example.jpg" />
+                            <p class="help">Paste the album cover image URL.</p>
+                        </div>
+
+                        <div class="buttons mt-4">
+                            <button type="submit" class="button is-link">Add Record</button>
+                            <a href="/records" class="button is-light">Cancel</a>
+                        </div>
+                    </EditForm>
                 </div>
+            </div>
 
-                <div class="field">
-                    <InputText @bind-Value="addNewRecord.Genre" class="input" placeholder="Genre" />
-                    <ValidationMessage For="@(() => addNewRecord.Genre)" />
+            <div class="column">
+                <div class="box">
+                    <h2 class="title is-5">Preview</h2>
+
+                    @if (!string.IsNullOrWhiteSpace(addNewRecord.ImageUrl))
+                    {
+                        <figure class="image is-square mb-3">
+                            <img src="@addNewRecord.ImageUrl" alt="@addNewRecord.Title" />
+                        </figure>
+                    }
+
+                    <p class="title is-5">
+                        @(string.IsNullOrWhiteSpace(addNewRecord.Title) ? "Record title" : addNewRecord.Title)
+                    </p>
+
+                    <p class="subtitle is-6">
+                        @(string.IsNullOrWhiteSpace(addNewRecord.Artist) ? "Artist name" : addNewRecord.Artist)
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag is-link">
+                            @(string.IsNullOrWhiteSpace(addNewRecord.Genre) ? "Genre" : addNewRecord.Genre)
+                        </span>
+                        <span class="tag is-light">@addNewRecord.Year</span>
+                        <span class="tag is-success">£@addNewRecord.Price</span>
+                        <span class="tag is-info">@addNewRecord.Stock in stock</span>
+                    </div>
                 </div>
-
-                <div class="field">
-                    <InputNumber @bind-Value="addNewRecord.Year" class="input" placeholder="Year" />
-                    <ValidationMessage For="@(() => addNewRecord.Year)" />
-                </div>
-
-                <div class="field">
-                    <InputNumber @bind-Value="addNewRecord.Price" class="input" placeholder="Price" />
-                    <ValidationMessage For="@(() => addNewRecord.Price)" />
-                </div>
-
-                <div class="field">
-                    <InputNumber @bind-Value="addNewRecord.Stock" class="input" placeholder="Stock" />
-                    <ValidationMessage For="@(() => addNewRecord.Stock)" />
-                </div>
-
-                <div class="field">
-                    <InputText @bind-Value="addNewRecord.ImageUrl" class="input" placeholder="Image URL" />
-                </div>
-
-                <button type="submit" class="button is-link">Add Record</button>
-                <a href="/records" class="button is-light">Cancel</a>
-            </EditForm>
+            </div>
         </div>
 
         @if (!string.IsNullOrEmpty(Message))
         {
-            <div class="notification is-danger">@Message</div>
+            <div class="notification is-danger mt-4">@Message</div>
         }
     </div>
 </section>

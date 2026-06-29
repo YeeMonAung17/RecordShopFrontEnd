@@ -1,72 +1,117 @@
 ﻿@page "/"
 
-<PageTitle>Vinyl Vault</PageTitle>
+<PageTitle>Vinyl Vault — Record Shop Inventory</PageTitle>
 
-<section class="hero is-success ">
-    <div class="hero-body">
-        <div class="container has-text-centered">
-            <p class="title is-1">Vinyl Vault</p>
-            <p class="subtitle is-4">
-                Browse records, view album details, and update your catalogue.
+<!-- Modern Minimalist Hero with Practical Copy -->
+<section class="section" style="padding-top: 5rem; padding-bottom: 5rem; background: #fafafa; border-bottom: 1px solid #eaeaea;">
+    <div class="container">
+        <div style="max-width: 700px;">
+            <div class="mb-3">
+                <span class="tag" style="background: #111; color: #fff; font-family: monospace; font-weight: 600; border-radius: 4px;">Active Storefront</span>
+            </div>
+            <h1 class="title is-1" style="font-weight: 800; letter-spacing: -0.05em; margin-bottom: 1rem; color: #111; font-size: 3.5rem;">
+                Vinyl Vault
+            </h1>
+            <p class="subtitle is-4" style="color: #555; font-weight: 300; line-height: 1.6; margin-bottom: 2rem;">
+                Simple, reliable inventory tracking built specifically for music retail. Run your physical store counts, log new arrivals, and keep your music catalogue up to date from one clean screen.
             </p>
-
-            <a class="button is-light is-medium" href="/records">
-                Browse Records
-            </a>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <div class="columns is-variable is-5">
-            <div class="column">
-                <div class="box has-text-centered">
-                    <h2 class="title is-4">Browse Records</h2>
-                    <p>Explore the full vinyl catalogue with album covers, artists, genres, and prices.</p>
-                </div>
-            </div>
-
-            <div class="column">
-                <div class="box has-text-centered">
-                    <h2 class="title is-4">View Stock</h2>
-                    <p>Check how many copies are available before opening a record's detail page.</p>
-                </div>
-            </div>
-
-            <div class="column">
-                <div class="box has-text-centered">
-                    <h2 class="title is-4">Update Details</h2>
-                    <p>Edit album information including title, genre, price, stock, and cover image URL.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<h2 class="title is-5 has-text-centered">How Vinyl Vault Works</h2>
-<section class="section pt-0">
-    <div class="container">
-        <div class="box">
-            <div class="columns has-text-centered">
-                <div class="column">
-                    <p class="heading">Step 1</p>
-                    <p class="title is-5">Browse</p>
-                    <p>Open the record catalogue and view every album currently stored in the shop.</p>
-                </div>
-
-                <div class="column">
-                    <p class="heading">Step 2</p>
-                    <p class="title is-5">Select</p>
-                    <p>Choose a record card to view album details, stock, price, and cover art.</p>
-                </div>
-
-                <div class="column">
-                    <p class="heading">Step 3</p>
-                    <p class="title is-5">Update</p>
-                    <p>Edit the record details and save the changes back to the database.</p>
-                </div>
+            <div class="buttons">
+                <a class="button is-dark" href="/records" style="font-weight: 600; border-radius: 4px; padding-left: 2rem; padding-right: 2rem; background: #111;">
+                    Open Record Catalogue
+                </a>
+                <a class="button is-light" href="/about" style="font-weight: 500; border-radius: 4px; background: transparent; border: 1px solid #eaeaea;">
+                    System Overview
+                </a>
             </div>
         </div>
     </div>
 </section>
 
+<div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
+
+    <!-- Shop Capabilities Section -->
+    <div class="columns" style="margin-bottom: 4rem;">
+        <div class="column is-4">
+            <h2 class="title is-5" style="text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; color: #888; margin-bottom: 0.5rem;">
+                Core Features
+            </h2>
+            <p style="color: #666; font-size: 0.95rem; font-weight: 300; line-height: 1.5;">
+                Tools tailored to handle the unique quirks of buying, grading, and selling vinyl.
+            </p>
+        </div>
+        <div class="column is-8">
+            <div class="columns is-multiline">
+                <!-- Feature 1 -->
+                <div class="column is-6" style="margin-bottom: 1.5rem;">
+                    <div style="border-top: 2px solid #111; padding-top: 1rem;">
+                        <h3 class="title is-6" style="font-weight: 700; color: #111; margin-bottom: 0.5rem;">Fast Catalogue Browsing</h3>
+                        <p style="color: #555; font-size: 0.95rem; line-height: 1.6;">
+                            Quickly scroll or search through your entire physical stock. Instantly see high-resolution sleeve artwork, track artists, organize by genres, and track prices.
+                        </p>
+                    </div>
+                </div>
+                <!-- Feature 2 -->
+                <div class="column is-6" style="margin-bottom: 1.5rem;">
+                    <div style="border-top: 2px solid #eaeaea; padding-top: 1rem;">
+                        <h3 class="title is-6" style="font-weight: 700; color: #111; margin-bottom: 0.5rem;">Live Stock Quantities</h3>
+                        <p style="color: #555; font-size: 0.95rem; line-height: 1.6;">
+                            See exactly how many copies of an album you have on hand before pulling it from the back room or selling it to a customer at the counter.
+                        </p>
+                    </div>
+                </div>
+                <!-- Feature 3 -->
+                <div class="column is-6">
+                    <div style="border-top: 2px solid #eaeaea; padding-top: 1rem;">
+                        <h3 class="title is-6" style="font-weight: 700; color: #111; margin-bottom: 0.5rem;">Instant Album Updates</h3>
+                        <p style="color: #555; font-size: 0.95rem; line-height: 1.6;">
+                            Change prices on the fly, adjust quantities after a trade-in, correct release years, or swap out artwork URLs using a simple edit screen.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="background-color: #eaeaea; height: 1px; margin: 3.5rem 0;" />
+
+    <!-- Daily Store Workflow Section -->
+    <div class="columns">
+        <div class="column is-4">
+            <h2 class="title is-5" style="text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; color: #888; margin-bottom: 0.5rem;">
+                Daily Store Workflow
+            </h2>
+            <p style="color: #666; font-size: 0.95rem; font-weight: 300; line-height: 1.5;">
+                How staff interact with the inventory system on a normal shift.
+            </p>
+        </div>
+        <div class="column is-8">
+            <div class="columns">
+                <!-- Step 1 -->
+                <div class="column is-4">
+                    <div style="background: #fafafa; padding: 1.5rem; border: 1px solid #eaeaea; border-radius: 4px; height: 100%;">
+                        <span style="font-family: monospace; font-size: 0.8rem; color: #888; font-weight: 600; display: block; margin-bottom: 0.5rem;">01 / SEARCH</span>
+                        <h4 class="title is-6" style="font-weight: 700; color: #111; margin-bottom: 0.5rem;">Find the Album</h4>
+                        <p style="color: #666; font-size: 0.9rem; line-height: 1.5;">When a customer asks about a release, search the digital racks to see if you have it in stock.</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="column is-4">
+                    <div style="background: #fafafa; padding: 1.5rem; border: 1px solid #eaeaea; border-radius: 4px; height: 100%;">
+                        <span style="font-family: monospace; font-size: 0.8rem; color: #888; font-weight: 600; display: block; margin-bottom: 0.5rem;">02 / AUDIT</span>
+                        <h4 class="title is-6" style="font-weight: 700; color: #111; margin-bottom: 0.5rem;">Check Details</h4>
+                        <p style="color: #666; font-size: 0.9rem; line-height: 1.5;">Open up the item sheet to double-check pricing variations, press years, and exact condition codes.</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="column is-4">
+                    <div style="background: #fafafa; padding: 1.5rem; border: 1px solid #eaeaea; border-radius: 4px; height: 100%;">
+                        <span style="font-family: monospace; font-size: 0.8rem; color: #888; font-weight: 600; display: block; margin-bottom: 0.5rem;">03 / SAVE</span>
+                        <h4 class="title is-6" style="font-weight: 700; color: #111; margin-bottom: 0.5rem;">Apply Changes</h4>
+                        <p style="color: #666; font-size: 0.9rem; line-height: 1.5;">Add new trade-ins or mark items as sold. Your changes save instantly to keep the shop records accurate.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
