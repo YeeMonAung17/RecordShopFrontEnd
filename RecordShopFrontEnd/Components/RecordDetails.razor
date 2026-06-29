@@ -39,6 +39,8 @@
                 <InputText @bind-Value="updatedRecord.ImageUrl" class="input" placeholder="Image URL" />
             </div>
         <button type="button" class="button is-link" @onclick="saveChanges">Save Changes</button>
+            <button type="button" class="button is-link" @onclick="deleteRecord">Delete Record</button>
+
 
     </EditForm>
     </div>
@@ -107,6 +109,39 @@
         catch (Exception ex)
         {
             Message = $"Error updating record: {ex.Message}";
+        }
+    }
+
+    public async Task deleteRecord()
+    {
+        if (updatedRecord == null)
+        {
+            Message = "No record selected.";
+            return;
+        }
+
+        try
+        {
+            using var httpClient = new HttpClient();
+            string albumApiUrl = Configuration["ApiSettings:AlbumApiUrl"]!;
+            string apiUrl = $"{albumApiUrl}/{updatedRecord.Id}";
+            var response = await httpClient.DeleteAsync(apiUrl);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Message = "Record deleted successfully.";
+                updatedRecord = null;
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                Message = "Failed to delete record. Please try again.";
+                Console.WriteLine($"Delete failed: {response.StatusCode} - {errorContent}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Message = $"Error deleting record: {ex.Message}";
         }
     }
 }

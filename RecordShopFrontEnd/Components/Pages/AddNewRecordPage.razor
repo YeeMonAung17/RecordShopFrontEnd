@@ -1,0 +1,103 @@
+﻿@page "/records/new"
+@rendermode InteractiveServer
+@using RecordShopFrontEnd.Models
+@using System.Net.Http.Json
+@inject IConfiguration Configuration
+@inject NavigationManager NavigationManager
+
+<PageTitle>Add New Record</PageTitle>
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">Add New Record</h1>
+
+        <div class="box">
+            <EditForm Model="addNewRecord" OnValidSubmit="AddRecord">
+                <DataAnnotationsValidator />
+
+                <div class="field">
+                    <InputText @bind-Value="addNewRecord.Title" class="input" placeholder="Title" />
+                    <ValidationMessage For="@(() => addNewRecord.Title)" />
+                </div>
+
+                <div class="field">
+                    <InputText @bind-Value="addNewRecord.Artist" class="input" placeholder="Artist" />
+                    <ValidationMessage For="@(() => addNewRecord.Artist)" />
+                </div>
+
+                <div class="field">
+                    <InputText @bind-Value="addNewRecord.Genre" class="input" placeholder="Genre" />
+                    <ValidationMessage For="@(() => addNewRecord.Genre)" />
+                </div>
+
+                <div class="field">
+                    <InputNumber @bind-Value="addNewRecord.Year" class="input" placeholder="Year" />
+                    <ValidationMessage For="@(() => addNewRecord.Year)" />
+                </div>
+
+                <div class="field">
+                    <InputNumber @bind-Value="addNewRecord.Price" class="input" placeholder="Price" />
+                    <ValidationMessage For="@(() => addNewRecord.Price)" />
+                </div>
+
+                <div class="field">
+                    <InputNumber @bind-Value="addNewRecord.Stock" class="input" placeholder="Stock" />
+                    <ValidationMessage For="@(() => addNewRecord.Stock)" />
+                </div>
+
+                <div class="field">
+                    <InputText @bind-Value="addNewRecord.ImageUrl" class="input" placeholder="Image URL" />
+                </div>
+
+                <button type="submit" class="button is-link">Add Record</button>
+                <a href="/records" class="button is-light">Cancel</a>
+            </EditForm>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Message))
+        {
+            <div class="notification is-danger">@Message</div>
+        }
+    </div>
+</section>
+
+@code {
+    private Album addNewRecord = new()
+    {
+        Title = string.Empty,
+        Artist = string.Empty,
+        Genre = string.Empty,
+        Year = DateTime.Now.Year,
+        Price = 0,
+        Stock = 0,
+        ImageUrl = string.Empty
+    };
+
+    private string? Message;
+
+    private async Task AddRecord()
+    {
+        try
+        {
+            using var httpClient = new HttpClient();
+
+            string albumApiUrl = Configuration["ApiSettings:AlbumApiUrl"]!;
+
+            var response = await httpClient.PostAsJsonAsync(albumApiUrl, addNewRecord);
+
+            if (response.IsSuccessStatusCode)
+            {
+                NavigationManager.NavigateTo("/records");
+            }
+            else
+            {
+                Message = "Error adding record.";
+            }
+        }
+        catch (Exception ex)
+        {
+            Message = "Something went wrong while adding the record.";
+            Console.WriteLine($"Add record error: {ex.Message}");
+        }
+    }
+}
