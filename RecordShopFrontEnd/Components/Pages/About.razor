@@ -1,0 +1,185 @@
+﻿@page "/about"
+
+<PageTitle>About — Vinyl Vault</PageTitle>
+
+<section class="section" style="padding-top: 3rem; padding-bottom: 3rem; background: #fafafa; border-bottom: 1px solid #eaeaea;">
+    <div class="container">
+        <div class="is-flex is-justify-content-space-between is-align-items-center is-flex-wrap-wrap" style="gap: 1.5rem;">
+            <div>
+                <h1 class="title is-2" style="font-weight: 800; letter-spacing: -0.04em; margin-bottom: 0.5rem; color: #111;">
+                    Vinyl Vault
+                </h1>
+
+                <p class="subtitle is-5" style="color: #666; font-weight: 400; max-width: 650px;">
+                    A full-stack record shop inventory app built with Blazor, ASP.NET Core, Entity Framework Core, and SQL Server.
+                </p>
+            </div>
+
+            <div class="field is-grouped is-grouped-multiline">
+                <div class="control">
+                    <span class="tag" style="background: #111; color: #fff; font-family: monospace; font-weight: 600; border-radius: 4px;">Portfolio Project</span>
+                </div>
+
+                <div class="control">
+                    <span class="tag" style="background: #eaeaea; color: #444; font-weight: 500; border-radius: 4px;">Blazor</span>
+                </div>
+
+                <div class="control">
+                    <span class="tag" style="background: #eaeaea; color: #444; font-weight: 500; border-radius: 4px;">ASP.NET Core</span>
+                </div>
+
+                <div class="control">
+                    <span class="tag" style="background: #eaeaea; color: #444; font-weight: 500; border-radius: 4px;">SQL Server</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container" style="padding-top: 3rem; padding-bottom: 4rem;">
+
+    <div class="columns" style="margin-bottom: 3.5rem;">
+        <div class="column is-4">
+            <h2 class="title is-5" style="text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; color: #888;">
+                System Overview
+            </h2>
+        </div>
+        <div class="column is-8">
+            <p class="content is-size-5" style="color: #333; line-height: 1.7; font-weight: 300;">
+                Vinyl Vault demonstrates a full-stack .NET workflow: a component-based Blazor frontend communicates with an ASP.NET Core Web API over HTTP/JSON, while Entity Framework Core manages SQL Server persistence. The system supports catalogue browsing, album detail views, stock visibility, and CRUD operations for record inventory.
+            </p>
+        </div>
+    </div>
+
+    <hr style="background-color: #eaeaea; height: 1px; margin: 2.5rem 0;" />
+
+    <div class="columns" style="margin-bottom: 3.5rem;">
+        <div class="column is-4">
+            <h2 class="title is-5" style="text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; color: #888;">
+                Architecture Stack
+            </h2>
+        </div>
+
+        <div class="column is-8">
+            <div class="columns">
+                <div class="column is-6">
+                    <div style="border-top: 2px solid #111; padding-top: 1.25rem; height: 100%;">
+                        <h3 class="subtitle is-5" style="font-weight: 700; color: #111; margin-bottom: 1rem;">
+                            Frontend
+                        </h3>
+
+                        <ul style="list-style: none; margin: 0; padding: 0; color: #555; line-height: 1.8;">
+                            <li style="margin-bottom: 0.75rem;">
+                                <strong style="color:#111;">Blazor Components:</strong> Reusable components for record lists, summary cards, detail forms, and add-record workflows.
+                            </li>
+
+                            <li style="margin-bottom: 0.75rem;">
+                                <strong style="color:#111;">Routing:</strong> Route-based pages for home, all records, individual record details, and adding new records.
+                            </li>
+
+                            <li style="margin-bottom: 0.75rem;">
+                                <strong style="color:#111;">REST Integration:</strong> Uses HttpClient to load, create, update, and delete records through the backend API.
+                            </li>
+
+                            <li style="margin-bottom: 0.75rem;">
+                                <strong style="color:#111;">Responsive UI:</strong> Styled with Bulma CSS for clean layouts across list, form, and detail pages.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="column is-6">
+                    <div style="border-top: 2px solid #eaeaea; padding-top: 1.25rem; height: 100%;">
+                        <h3 class="subtitle is-5" style="font-weight: 700; color: #111; margin-bottom: 1rem;">
+                            Backend
+                        </h3>
+
+                        <ul style="list-style: none; margin: 0; padding: 0; color: #555; line-height: 1.8;">
+                            <li style="margin-bottom: 0.75rem;">
+                                <strong style="color:#111;">ASP.NET Core API:</strong> Exposes endpoints for browsing, searching, creating, updating, and deleting album records.
+                            </li>
+
+                            <li style="margin-bottom: 0.75rem;">
+                                <strong style="color:#111;">Entity Framework Core:</strong> Uses EF Core with SQL Server for album persistence and database migrations.
+                            </li>
+
+                            <li style="margin-bottom: 0.75rem;">
+                                <strong style="color:#111;">Layered Architecture:</strong> Separates controller, service, and repository responsibilities using dependency injection.
+                            </li>
+
+                            <li style="margin-bottom: 0.75rem;">
+                                <strong style="color:#111;">Testing:</strong> Includes NUnit and Moq tests across controller, service, and repository layers.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="background-color: #eaeaea; height: 1px; margin: 2.5rem 0;" />
+
+    <div class="columns" style="margin-bottom: 3.5rem;">
+        <div class="column is-4">
+            <h2 class="title is-5" style="text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; color: #888;">
+                Data Flow
+            </h2>
+        </div>
+
+        <div class="column is-8">
+            <div style="background: #f4f4f4; padding: 1.25rem; border-radius: 6px; font-family: monospace; font-size: 0.85rem; color: #333; overflow-x: auto; margin-bottom: 1rem;">
+                Blazor UI ──[HTTP / JSON]──> API Controllers ──> Services ──> Repositories ──> SQL Server
+            </div>
+
+            <p style="color: #555; line-height: 1.6;">
+                User actions in the Blazor frontend trigger asynchronous HTTP requests to the ASP.NET Core API.
+                Controllers handle routing and validation, services coordinate application logic, and repositories use
+                Entity Framework Core to read and write album data in SQL Server.
+            </p>
+        </div>
+    </div>
+
+    <hr style="background-color: #eaeaea; height: 1px; margin: 2.5rem 0;" />
+
+    <div class="columns">
+        <div class="column is-4">
+            <h2 class="title is-5" style="text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem; color: #888;">
+                Development Roadmap
+            </h2>
+        </div>
+        <div class="column is-8">
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                    <span style="font-size: 0.8rem; background: #fff8e1; color: #b78103; border: 1px solid #ffe082; padding: 2px 8px; border-radius: 4px; font-weight: 600; white-space: nowrap;">Phase 2</span>
+                    <div>
+                        <strong style="color: #111; display: block; margin-bottom: 0.25rem;">Authentication & Role-Based Access</strong>
+                        <p style="color: #555; margin: 0; font-size: 0.95rem;">
+                            Add login functionality and restrict add, update, and delete actions to authorised staff users.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                    <span style="font-size: 0.8rem; background: #f0f4f8; color: #1e4e8c; border: 1px solid #d0e2f5; padding: 2px 8px; border-radius: 4px; font-weight: 600; white-space: nowrap;">Phase 3</span>
+                    <div>
+                        <strong style="color: #111; display: block; margin-bottom: 0.25rem;">AI Catalogue Assistant</strong>
+                        <p style="color: #555; margin: 0; font-size: 0.95rem;">
+                            Add a natural language assistant for searching the catalogue, recommending records, and answering stock-related questions.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div style="display: flex; align-items: flex-start; gap: 1rem;">
+                    <span style="font-size: 0.8rem; background: #f4f4f4; color: #666; border: 1px solid #eaeaea; padding: 2px 8px; border-radius: 4px; font-weight: 600; white-space: nowrap;">Backlog</span>
+                    <div>
+                        <strong style="color: #111; display: block; margin-bottom: 0.25rem;">Image Uploads & Storage</strong>
+                        <p style="color: #555; margin: 0; font-size: 0.95rem;">
+                            Replace image URL input with album cover uploads and store artwork using backend or cloud storage.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
