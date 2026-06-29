@@ -1,0 +1,39 @@
+﻿<div class="box">
+    <div class="field has-addons">
+        <div class="control is-expanded">
+            <input class="input"
+                   placeholder="Search by title, artist, genre, year, price, or stock..."
+                   @bind="searchRecord" />
+        </div>
+
+        <div class="control">
+            <button type="button" class="button is-link" @onclick="OnSearchClicked">
+                Search
+            </button>
+        </div>
+
+        <div class="control">
+            <button type="button" class="button is-light" @onclick="OnClearClicked">
+                Clear
+            </button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<string> OnSearch { get; set; }
+
+    private string searchRecord = string.Empty;
+
+    private async Task OnSearchClicked()
+    {
+        await OnSearch.InvokeAsync(searchRecord);
+    }
+
+    private async Task OnClearClicked()
+    {
+        searchRecord = string.Empty;
+        await OnSearch.InvokeAsync(string.Empty);
+    }
+}

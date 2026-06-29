@@ -1,37 +1,74 @@
 ﻿@page "/records"
 @rendermode InteractiveServer
-
-<PageTitle>All Records</PageTitle>
-@page "/records"
+@using RecordShopFrontEnd.Models
+@using System.Net.Http.Json
+@inject IConfiguration Configuration
 
 <PageTitle>Store Catalogue — Vinyl Vault</PageTitle>
 
 <section class="section" style="padding-top: 3rem; padding-bottom: 4rem; background: #ffffff;">
     <div class="container">
-
-        <!-- Modernized Layout Header with Staff Actions -->
         <div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #111; padding-bottom: 1.5rem; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1rem;">
             <div>
                 <h1 class="title is-2" style="font-weight: 800; letter-spacing: -0.04em; margin: 0; color: #111;">
                     Store Catalogue
                 </h1>
+
                 <p style="color: #666; margin-top: 0.25rem; font-size: 0.95rem; font-weight: 300;">
                     Review, audit, and manage active physical vinyl inventory.
                 </p>
             </div>
+
             <div>
-                <a class="button is-dark" href="records/new" style="font-weight: 600; border-radius: 4px; background: #111;">
+                <a class="button is-dark" href="/records/new" style="font-weight: 600; border-radius: 4px; background: #111;">
                     + Log New Arrival
                 </a>
             </div>
         </div>
 
-        <!-- Safe Core Loading Grid Content -->
-        <div class="store-grid-viewport">
-            <RecordsLoader />
+        <div class="mb-5">
+            <RecordsSearch OnSearch="UpdateFilteredAlbums" />
         </div>
 
+        <div class="store-grid-viewport">
+            <RecordsSummaryList Records="filteredAlbums" />
+        </div>
     </div>
 </section>
 
+@code {
+    private List<Album> records = new();
 
+    private List<Album> filteredAlbums = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var httpClient = new HttpClient();
+
+        string apiUrl = Configuration["ApiSettings:AlbumApiUrl"]!;
+
+        records = await httpClient.GetFromJsonAsync<List<Album>>(apiUrl) ?? new List<Album>();
+
+        filteredAlbums = records.ToList();
+    }
+
+    private void UpdateFilteredAlbums(string searchTerm)
+    {
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            filteredAlbums = records.ToList();
+            return;
+        }
+
+        filteredAlbums = records
+     .Where(record =>
+         record.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+         record.Artist.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+         record.Genre.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+         record.Year.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+         record.Price.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+         record.Stock.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
+     )
+     .ToList();
+    }
+}
