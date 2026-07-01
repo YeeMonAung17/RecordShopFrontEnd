@@ -1,0 +1,141 @@
+﻿@page "/chat"
+@rendermode InteractiveServer
+@using RecordShopFrontEnd.Models
+@using System.Net.Http.Json
+@inject IConfiguration Configuration
+
+<PageTitle>AI Assistant - Vinyl Vault</PageTitle>
+
+<div class="chat-page-container">
+    <header class="chat-page-header">
+        <h1>AI Assistant</h1>
+        <p class="chat-page-lead">Get help exploring the Vinyl Vault catalogue.</p>
+    </header>
+
+    <section class="chat-page-content">
+        <div class="chat-window">
+            @if (!chatHistory.Any())
+            {
+                <div class="info-alert">
+                    <strong>How can I help you today?</strong>
+                    <p>Try asking for recommendations, stock details, or albums by genre.</p>
+                </div>
+            }
+            else
+            {
+                @foreach (var message in chatHistory)
+                {
+                    <div class="message-row @(message.Role == "user" ? "user-row" : "assistant-row")">
+                        <div class="message-bubble">
+                            <strong>@(message.Role == "user" ? "You" : "Assistant")</strong>
+                            <p>@message.Content</p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="error-alert">
+                @errorMessage
+            </div>
+        }
+
+        <div class="chat-input-card">
+            <div class="input-wrapper">
+                <input class="chat-input"
+                       placeholder="Ask something about records..."
+                       @bind:event="oninput"
+                       @onkeydown="HandleKeyDown"
+                       @bind="userMessage" />
+            <button class="chat-button"
+                    type="button"
+                    disabled="@isSending"
+                    @onclick="SendMessage">
+                @(isSending ? "Sending..." : "Send")
+            </button>
+            </div>
+        </div>
+    </section>
+</div>
+
+@code {
+    private string userMessage = string.Empty;
+    private bool isSending = false;
+    private string? errorMessage;
+    private List<ChatMessage> chatHistory = new();
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !isSending)
+        {
+            await SendMessage();
+        }
+    }
+
+    private async Task SendMessage()
+    {
+        if (string.IsNullOrWhiteSpace(userMessage))
+        {
+            return;
+        }
+
+        var messageToSend = userMessage.Trim();
+
+        chatHistory.Add(new ChatMessage
+        {
+            Role = "user",
+            Content = messageToSend
+        });
+
+        userMessage = string.Empty;
+        errorMessage = null;
+        isSending = true;
+
+        try
+        {
+            using var httpClient = new HttpClient();
+
+            var request = new ChatRequest
+            {
+                Message = messageToSend,
+                History = chatHistory
+            };
+
+            var response = await httpClient.PostAsJsonAsync(
+                "http://localhost:5000/api/chat",
+                request
+            );
+
+            if (!response.IsSuccessStatusCode)
+            {
+                errorMessage = "The assistant could not respond. Please try again.";
+                return;
+            }
+
+            var chatResponse = await response.Content.ReadFromJsonAsync<ChatResponse>();
+
+            if (chatResponse == null || !chatResponse.Success)
+            {
+                errorMessage = chatResponse?.Error ?? "The assistant could not respond.";
+                return;
+            }
+
+            chatHistory.Add(new ChatMessage
+            {
+                Role = "assistant",
+                Content = chatResponse.Reply
+            });
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Something went wrong while contacting the assistant.";
+            Console.WriteLine($"Chat error: {ex.Message}");
+        }
+        finally
+        {
+            isSending = false;
+        }
+    }
+}
