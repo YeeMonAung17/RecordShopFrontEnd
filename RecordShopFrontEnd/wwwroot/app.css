@@ -134,12 +134,12 @@ h1:focus {
 }
 
     .button.is-link {
-        background-color: #7a1c1c;
+        background-color: #111;
         color: white;
     }
 
         .button.is-link:hover {
-            background-color: #275fb8;
+            background-color: #333;
         }
 
 
