@@ -3,7 +3,8 @@
     <div class="records-search-row">
         <input class="records-search-input"
                placeholder="Search by title, artist, genre, year, price, or stock..."
-               @bind="searchRecord" />
+               @bind="searchRecord"
+               @oninput="OnSearchChanged" />
 
         <button type="button" class="records-search-button primary" @onclick="OnSearchClicked">
             Search
@@ -21,8 +22,15 @@
 
     private string searchRecord = string.Empty;
 
+    private async Task OnSearchChanged(ChangeEventArgs e)
+    {
+        searchRecord = e.Value?.ToString() ?? string.Empty;
+        await OnSearch.InvokeAsync(searchRecord);
+    }
+
     private async Task OnSearchClicked()
     {
+
         await OnSearch.InvokeAsync(searchRecord);
     }
 

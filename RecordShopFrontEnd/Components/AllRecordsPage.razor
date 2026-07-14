@@ -29,7 +29,13 @@
         <div class="mb-5">
             <RecordsSearch OnSearch="UpdateFilteredAlbums" />
         </div>
-
+        @if (!filteredAlbums.Any())
+        {
+            <div style="padding: 1.5rem; background: #fafafa; border: 1px solid #eaeaea; color: #666; border-radius: 4px; font-size: 0.95rem;">
+                No records found matching your search criteria.
+            </div>
+        }
+        
         <div class="store-grid-viewport">
             <RecordsSummaryList Records="filteredAlbums" />
         </div>
