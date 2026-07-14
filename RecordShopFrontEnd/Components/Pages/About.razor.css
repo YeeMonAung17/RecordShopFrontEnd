@@ -1,0 +1,201 @@
+﻿/* Hero Header Layout */
+.about-hero {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    background: #fafafa;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.about-hero-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    margin-bottom: 0.5rem;
+    color: #111;
+}
+
+.about-hero-subtitle {
+    color: #555;
+    font-size: 1.15rem;
+    font-weight: 400;
+    max-width: 650px;
+    line-height: 1.6;
+}
+
+/* Badging */
+.gap-md {
+    gap: 1.5rem;
+}
+
+.custom-badge {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.badge-dark {
+    background: #111;
+    color: #fff;
+    font-family: monospace;
+}
+
+.badge-light {
+    background: #f0f0f0;
+    color: #444;
+    border: 1px solid #e0e0e0;
+}
+
+/* Container Body */
+.about-body {
+    padding-top: 4rem;
+    padding-bottom: 5rem;
+}
+
+.section-row {
+    margin-bottom: 2rem;
+}
+
+.row-label {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #888;
+    padding-top: 0.25rem;
+}
+
+.section-divider {
+    background-color: #eaeaea;
+    height: 1px;
+    margin: 3.5rem 0;
+    border: none;
+}
+
+/* Body text */
+.overview-text {
+    color: #2c2c2c;
+    line-height: 1.75;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+.body-copy {
+    color: #555;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+.body-copy-sm {
+    color: #555;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Tech Cards */
+.tech-card {
+    padding: 1.75rem;
+    height: 100%;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.card-primary {
+    border-top: 3px solid #111;
+    background: #fafafa;
+}
+
+.card-secondary {
+    border-top: 3px solid #eaeaea;
+    background: #fafafa;
+}
+
+.tech-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 1.25rem;
+}
+
+.tech-list {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+    .tech-list li {
+        margin-bottom: 0.85rem;
+        color: #555;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+        .tech-list li strong {
+            color: #111;
+        }
+
+/* Code Flow Diagram */
+.flow-diagram {
+    background: #111;
+    color: #fff;
+    padding: 1.25rem 1.5rem;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    overflow-x: auto;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Info & Roadmap Status Boxes */
+.status-badge {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+}
+
+.status-blue {
+    background: #eef6ff;
+    color: #1d4f91;
+    border: 1px solid #cfe3ff;
+}
+
+.status-amber {
+    background: #fff8e1;
+    color: #b78103;
+    border: 1px solid #ffe082;
+}
+
+.status-gray {
+    background: #f4f4f4;
+    color: #666;
+    border: 1px solid #eaeaea;
+}
+
+/* Roadmap Block */
+.roadmap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.roadmap-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+}
+
+.roadmap-title {
+    color: #111;
+    display: block;
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+    font-weight: bold;
+}
