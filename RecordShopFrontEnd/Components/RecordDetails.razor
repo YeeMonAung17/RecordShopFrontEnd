@@ -1,6 +1,7 @@
 ﻿@using RecordShopFrontEnd.Models
 @using System.Net.Http.Json;
 @inject IConfiguration Configuration
+@inject NavigationManager NavigationManager
 
 @if (updatedRecord == null)
 {
@@ -38,10 +39,36 @@
             <div class="field">
                 <InputText @bind-Value="updatedRecord.ImageUrl" class="input" placeholder="Image URL" />
             </div>
-        <button type="button" class="button is-link" @onclick="saveChanges">Save Changes</button>
-            <button type="button" class="button is-link" @onclick="deleteRecord">Delete Record</button>
+            <div class="buttons mt-4">
+                <button type="button" class="button is-link" @onclick="SaveChanges">Save Changes</button>
+                <button type="button" class="button is-danger" @onclick="ShowDeleteConfirmation">
+                    Delete Record
+                </button>
+            </div>
+            @if (showDeleteConfirmation)
+            {
+                <div class="notification is-danger is-light mt-4">
+                    <p class="has-text-weight-semibold">
+                        Delete this record?
+                    </p>
 
+                    <p>
+                        This will permanently remove
+                        <strong>@updatedRecord.Title</strong>
+                        from the catalogue.
+                    </p>
 
+                    <div class="buttons mt-3">
+                        <button type="button" class="button is-danger" @onclick="DeleteRecord">
+                            Confirm Delete
+                        </button>
+
+                        <button type="button" class="button is-light" @onclick="CancelDelete">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            }
     </EditForm>
     </div>
 
@@ -59,8 +86,9 @@
 
     private Album? updatedRecord;
 
-
     public string? Message;
+
+    private bool showDeleteConfirmation = false;
 
     protected override void OnParametersSet()
     {
@@ -79,7 +107,7 @@
                 };
         }
     }
-    private async Task saveChanges()
+    private async Task SaveChanges()
     {
         if (updatedRecord == null)
         {
@@ -112,25 +140,39 @@
         }
     }
 
-    public async Task deleteRecord()
+    private void ShowDeleteConfirmation()
+    {
+        showDeleteConfirmation = true;
+    }
+
+    private void CancelDelete()
+    {
+        showDeleteConfirmation = false;
+    }
+
+    private async Task DeleteRecord()
     {
         if (updatedRecord == null)
         {
             Message = "No record selected.";
             return;
         }
-
         try
         {
             using var httpClient = new HttpClient();
+
             string albumApiUrl = Configuration["ApiSettings:AlbumApiUrl"]!;
             string apiUrl = $"{albumApiUrl}/{updatedRecord.Id}";
+
             var response = await httpClient.DeleteAsync(apiUrl);
 
             if (response.IsSuccessStatusCode)
             {
                 Message = "Record deleted successfully.";
-                updatedRecord = null;
+                showDeleteConfirmation = false;
+
+                // Optional: navigate back to catalogue after delete
+                NavigationManager.NavigateTo("/records");
             }
             else
             {
